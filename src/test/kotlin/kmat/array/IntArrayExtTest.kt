@@ -1,3 +1,5 @@
+package kmat.array
+
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.lang.IndexOutOfBoundsException
@@ -69,5 +71,12 @@ class IntArrayExtTest {
         val arr = IntArray(10) { it * it }
         arr[7 until 3] = 34
         assertArrayEquals(IntArray(10) { it * it }, arr)
+    }
+
+    @Test
+    fun `adding a value to each element of array`() {
+        val arr = intArrayOf(2, 5, 7)
+        val resultArr = arr + 10
+        assertArrayEquals(resultArr, intArrayOf(12, 15, 17))
     }
 }
