@@ -17,3 +17,14 @@ operator fun Array<IntArray>.plus(value: Int): Array<IntArray> {
     }
     return result
 }
+
+fun Array<IntArray>.transpose(): Array<IntArray> {
+    if (isEmpty()) return emptyArray()
+    val result = Array(this[0].size) { IntArray(size) }
+    forEachIndexed { row, ints ->
+        ints.forEachIndexed { col, i ->
+            result[col][row] = this[row][col]
+        }
+    }
+    return result
+}

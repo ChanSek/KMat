@@ -79,4 +79,22 @@ class IntArrayExtTest {
         val resultArr = arr + 10
         assertArrayEquals(resultArr, intArrayOf(12, 15, 17))
     }
+
+    @Test
+    fun `transpose of a row vector`() {
+        val arr = intArrayOf(2, 5, 7)
+        val result = arr.transpose()
+        assertArrayEquals(result, arrayOf(
+            intArrayOf(2),
+            intArrayOf(5),
+            intArrayOf(7)
+        ))
+    }
+
+    @Test
+    fun `transpose of an empty row vector should return empty`() {
+        val arr = intArrayOf()
+        val result = arr.transpose()
+        assertArrayEquals(result, arrayOf())
+    }
 }

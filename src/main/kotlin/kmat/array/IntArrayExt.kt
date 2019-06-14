@@ -21,3 +21,11 @@ operator fun IntArray.plus(value: Int): IntArray {
     }
     return resultArr
 }
+
+fun IntArray.transpose(): Array<IntArray> {
+    val result = Array(size) { IntArray(1) }
+    forEachIndexed { index, i ->
+        result[index][0] = i
+    }
+    return result
+}

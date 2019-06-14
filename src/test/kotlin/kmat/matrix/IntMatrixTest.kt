@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 class IntMatrixTest {
 
-    lateinit var matrix: Array<IntArray>
+    private lateinit var matrix: Array<IntArray>
 
     @BeforeEach
     fun `initialize a matrix`() {
@@ -39,5 +39,36 @@ class IntMatrixTest {
             intArrayOf(-3, -2, -1)
         )
         assertArrayEquals(expectedMatrix, matrix)
+    }
+
+    @Test
+    fun `transpose of a matrix`() {
+        val resultMatrix = matrix.transpose()
+        val expectedMatrix = arrayOf(
+            intArrayOf(1, 4, 7),
+            intArrayOf(2, 5, 8),
+            intArrayOf(3, 6, 9)
+        )
+        assertArrayEquals(expectedMatrix, resultMatrix)
+
+        val anotherMatrix = arrayOf(
+            intArrayOf(2, 5),
+            intArrayOf(3, 51),
+            intArrayOf(2, 25),
+            intArrayOf(212, 590)
+        )
+        val anotherExpectedMatrix = arrayOf(
+            intArrayOf(2, 3, 2, 212),
+            intArrayOf(5, 51, 25, 590)
+        )
+        assertArrayEquals(anotherExpectedMatrix, anotherMatrix.transpose())
+    }
+
+    @Test
+    fun `transpose of an empty matrix should return an empty matrix`() {
+        matrix = arrayOf()
+        val resultMatrix = matrix.transpose()
+        val expectedMatrix = emptyArray<IntArray>()
+        assertArrayEquals(expectedMatrix, resultMatrix)
     }
 }
