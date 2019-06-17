@@ -15,11 +15,54 @@ operator fun IntArray.set(range: IntRange, value: Int) {
 }
 
 operator fun IntArray.plus(value: Int): IntArray {
-    val resultArr = this.copyOf()
+    val resultArr = IntArray(size)
     forEachIndexed { index, i ->
         resultArr[index] = i + value
     }
     return resultArr
+}
+
+operator fun IntArray.plus(value: IntArray): IntArray {
+    if (size != value.size) throw DifferentArrayLengthException("Both operand arrays has different size")
+    val resultArr = IntArray(size)
+    forEachIndexed { index, i ->
+        resultArr[index] = i + value[index]
+    }
+    return resultArr
+}
+
+operator fun IntArray.plusAssign(value: Int) {
+    forEachIndexed { index, i ->
+        this[index] = i + value
+    }
+}
+
+operator fun IntArray.times(value: Int): IntArray {
+    val resultArr = IntArray(size)
+    forEachIndexed { index, i ->
+        resultArr[index] = i * value
+    }
+    return resultArr
+}
+
+operator fun IntArray.timesAssign(value: Int) {
+    forEachIndexed { index, i ->
+        this[index] = i * value
+    }
+}
+
+operator fun IntArray.div(value: Int): IntArray {
+    val resultArr = IntArray(size)
+    forEachIndexed { index, i ->
+        resultArr[index] = i / value
+    }
+    return resultArr
+}
+
+operator fun IntArray.divAssign(value: Int) {
+    forEachIndexed { index, i ->
+        this[index] = i / value
+    }
 }
 
 fun IntArray.transpose(): Array<IntArray> {

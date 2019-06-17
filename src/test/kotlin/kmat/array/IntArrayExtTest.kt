@@ -1,3 +1,5 @@
+@file:Suppress("EmptyRange")
+
 package kmat.array
 
 import org.junit.jupiter.api.Assertions.*
@@ -78,6 +80,44 @@ class IntArrayExtTest {
         val arr = intArrayOf(2, 5, 7)
         val resultArr = arr + 10
         assertArrayEquals(resultArr, intArrayOf(12, 15, 17))
+
+        arr += 10
+        assertArrayEquals(arr, intArrayOf(12, 15, 17))
+    }
+
+    @Test
+    fun `adding two integer arrays`() {
+        val arr1 = intArrayOf(2, 5, 7)
+        val arr2 = intArrayOf(10, 20, 30)
+        assertArrayEquals(intArrayOf(12, 25, 37), arr1 + arr2)
+
+        val arr3 = intArrayOf()
+        assertThrows(DifferentArrayLengthException::class.java) {
+            arr1 + arr3
+        }
+
+        val arr4 = intArrayOf(1, 2, 3)
+        assertArrayEquals(intArrayOf(13, 27, 40), arr1 + arr2 + arr4)
+    }
+
+    @Test
+    fun `multiplying a value to each element of array`() {
+        val arr = intArrayOf(2, 5, 7)
+        val resultArr = arr * 10
+        assertArrayEquals(resultArr, intArrayOf(20, 50, 70))
+
+        arr *= 10
+        assertArrayEquals(arr, intArrayOf(20, 50, 70))
+    }
+
+    @Test
+    fun `dividing a value to each element of array`() {
+        val arr = intArrayOf(2, 5, 7)
+        val resultArr = arr / 2
+        assertArrayEquals(resultArr, intArrayOf(1, 2, 3))
+
+        arr /= 2
+        assertArrayEquals(arr, intArrayOf(1, 2, 3))
     }
 
     @Test

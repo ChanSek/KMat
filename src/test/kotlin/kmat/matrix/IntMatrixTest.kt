@@ -42,6 +42,45 @@ class IntMatrixTest {
     }
 
     @Test
+    fun `multiplying an integer value to each element of a matrix`() {
+        val resultMatrix = matrix * 10
+        val expectedMatrix = arrayOf(
+            intArrayOf(10, 20, 30),
+            intArrayOf(40, 50, 60),
+            intArrayOf(70, 80, 90)
+        )
+        assertArrayEquals(expectedMatrix, resultMatrix)
+
+        val secondResult = matrix multiply 20
+        val secondExpectedMatrix = arrayOf(
+            intArrayOf(20, 40, 60),
+            intArrayOf(80, 100, 120),
+            intArrayOf(140, 160, 180)
+        )
+        assertArrayEquals(secondExpectedMatrix, secondResult)
+
+        val thirdResult = matrix dot 20
+        assertArrayEquals(secondExpectedMatrix, thirdResult)
+
+        matrix *= 10
+        assertArrayEquals(expectedMatrix, matrix)
+    }
+
+    @Test
+    fun `dividing an integer value to each element of a matrix`() {
+        val resultMatrix = matrix / 2
+        val expectedMatrix = arrayOf(
+            intArrayOf(0, 1, 1),
+            intArrayOf(2, 2, 3),
+            intArrayOf(3, 4, 4)
+        )
+        assertArrayEquals(expectedMatrix, resultMatrix)
+
+        matrix /= 2
+        assertArrayEquals(expectedMatrix, matrix)
+    }
+
+    @Test
     fun `transpose of a matrix`() {
         val resultMatrix = matrix.transpose()
         val expectedMatrix = arrayOf(
