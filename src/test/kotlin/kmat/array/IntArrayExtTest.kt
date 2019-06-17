@@ -111,6 +111,28 @@ class IntArrayExtTest {
     }
 
     @Test
+    fun `multiplying a matrix with an array`() {
+        val arr = intArrayOf(2, 5, 7)
+        val matrix = arrayOf(
+            intArrayOf(1),
+            intArrayOf(2),
+            intArrayOf(3)
+        )
+        val result = arr * matrix
+        assertEquals(33, result)
+
+        val arr2 = intArrayOf(2, 5, 7, 6)
+        assertThrows(DifferentArrayLengthException::class.java) {
+            arr2 * matrix
+        }
+
+        val matrix2: Array<IntArray> = arrayOf()
+        assertThrows(DifferentArrayLengthException::class.java) {
+            arr2 * matrix2
+        }
+    }
+
+    @Test
     fun `dividing a value to each element of array`() {
         val arr = intArrayOf(2, 5, 7)
         val resultArr = arr / 2

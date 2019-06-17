@@ -45,6 +45,15 @@ operator fun IntArray.times(value: Int): IntArray {
     return resultArr
 }
 
+operator fun IntArray.times(value: Array<IntArray>): Int {
+    if (size != value.size) throw DifferentArrayLengthException("Both operand arrays has different size")
+    var result = 0
+    forEachIndexed { index, i ->
+        result += i * value[index][0]
+    }
+    return result
+}
+
 operator fun IntArray.timesAssign(value: Int) {
     forEachIndexed { index, i ->
         this[index] = i * value
