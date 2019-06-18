@@ -67,6 +67,21 @@ class IntMatrixTest {
     }
 
     @Test
+    fun `multiplying two matrices`() {
+        val matrix2 = arrayOf(
+            intArrayOf(10, 20, 30),
+            intArrayOf(40, 50, 60),
+            intArrayOf(70, 80, 90)
+        )
+        val expectedMatrix = arrayOf(
+            intArrayOf(300, 360, 420),
+            intArrayOf(660, 810, 960),
+            intArrayOf(1020, 1260, 1500)
+        )
+        assertArrayEquals(expectedMatrix, matrix * matrix2)
+    }
+
+    @Test
     fun `dividing an integer value to each element of a matrix`() {
         val resultMatrix = matrix / 2
         val expectedMatrix = arrayOf(
