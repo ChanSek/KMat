@@ -151,6 +151,14 @@ class IntArrayExtTest {
             intArrayOf(5),
             intArrayOf(7)
         ))
+
+        val arr2 = intArrayOf(10, 20, 30)
+        val result2 = arr2.T
+        assertArrayEquals(result2, arrayOf(
+            intArrayOf(10),
+            intArrayOf(20),
+            intArrayOf(30)
+        ))
     }
 
     @Test
@@ -158,5 +166,40 @@ class IntArrayExtTest {
         val arr = intArrayOf()
         val result = arr.transpose()
         assertArrayEquals(result, arrayOf())
+    }
+
+    @Test
+    fun `concatenation of two arrays horizontally`() {
+        val arr1 = intArrayOf(1, 2, 3)
+        var arr2 = intArrayOf()
+        assertArrayEquals(intArrayOf(1, 2, 3), arr1 concat arr2)
+        assertArrayEquals(intArrayOf(1, 2, 3), arr2 concat arr1)
+
+        arr2 = intArrayOf(1, 2, 3, 4)
+        assertArrayEquals(intArrayOf(1, 2, 3, 1, 2, 3, 4), arr1 concatX arr2)
+    }
+
+    @Test
+    fun `concatenation of two arrays vertically`() {
+        val arr1 = intArrayOf(1, 2, 3)
+        var arr2 = intArrayOf()
+        assertArrayEquals(arrayOf(intArrayOf(1, 2, 3)), arr1 concatY arr2)
+        assertArrayEquals(arrayOf(intArrayOf(1, 2, 3)), arr2 concatY arr1)
+
+        arr2 = intArrayOf(1, 2, 3, 4)
+        assertThrows(DifferentArrayLengthException::class.java) { arr1 concatY arr2 }
+        assertThrows(DifferentArrayLengthException::class.java) { arr2 concatY arr1 }
+
+        arr2 = intArrayOf(4, 5, 6)
+        var expected = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6)
+        )
+        assertArrayEquals(expected, arr1 concatY arr2)
+        expected = arrayOf(
+            intArrayOf(4, 5, 6),
+            intArrayOf(1, 2, 3)
+        )
+        assertArrayEquals(expected, arr2 concatY arr1)
     }
 }

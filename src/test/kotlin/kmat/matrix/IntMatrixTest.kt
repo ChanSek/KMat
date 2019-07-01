@@ -1,5 +1,6 @@
 package kmat.matrix
 
+import kmat.array.DifferentArrayLengthException
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -116,6 +117,9 @@ class IntMatrixTest {
             intArrayOf(5, 51, 25, 590)
         )
         assertArrayEquals(anotherExpectedMatrix, anotherMatrix.transpose())
+
+        val transposedMatrix = matrix.T
+        assertArrayEquals(transposedMatrix, resultMatrix)
     }
 
     @Test
@@ -124,5 +128,110 @@ class IntMatrixTest {
         val resultMatrix = matrix.transpose()
         val expectedMatrix = emptyArray<IntArray>()
         assertArrayEquals(expectedMatrix, resultMatrix)
+    }
+
+    @Test
+    fun `concatenation of two matrices horizontally`() {
+        var matrix2: Array<IntArray> = arrayOf()
+        assertArrayEquals(matrix, matrix concat matrix2)
+        assertArrayEquals(matrix, matrix2 concat matrix)
+
+        matrix2 = arrayOf(
+            intArrayOf(1, 2, 3, 4),
+            intArrayOf(5, 6, 7, 8)
+        )
+        assertThrows(DifferentArrayLengthException::class.java) { matrix concat matrix2 }
+        assertThrows(DifferentArrayLengthException::class.java) { matrix2 concat matrix }
+
+        matrix2 = arrayOf(
+            intArrayOf(1, 2, 3, 10),
+            intArrayOf(4, 5, 6, 20),
+            intArrayOf(7, 8, 9, 30)
+        )
+        var expectedMatrix = arrayOf(
+            intArrayOf(1, 2, 3, 1, 2, 3, 10),
+            intArrayOf(4, 5, 6, 4, 5, 6, 20),
+            intArrayOf(7, 8, 9, 7, 8, 9, 30)
+        )
+        assertArrayEquals(expectedMatrix, matrix concat matrix2)
+
+        expectedMatrix = arrayOf(
+            intArrayOf(1, 2, 3, 10, 1, 2, 3),
+            intArrayOf(4, 5, 6, 20, 4, 5, 6),
+            intArrayOf(7, 8, 9, 30, 7, 8, 9)
+        )
+        assertArrayEquals(expectedMatrix, matrix2 concatX matrix)
+
+        matrix2 = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 9)
+        )
+        expectedMatrix = arrayOf(
+            intArrayOf(1, 2, 3, 1, 2, 3),
+            intArrayOf(4, 5, 6, 4, 5, 6),
+            intArrayOf(7, 8, 9, 7, 8, 9)
+        )
+        assertArrayEquals(expectedMatrix, matrix concat matrix2)
+
+        matrix2 = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 9),
+            intArrayOf(10, 11, 12)
+        )
+        assertThrows(DifferentArrayLengthException::class.java) { matrix concat matrix2 }
+        assertThrows(DifferentArrayLengthException::class.java) { matrix2 concatX matrix }
+    }
+
+    @Test
+    fun `concatenation of two matrices vertically`() {
+        var matrix2: Array<IntArray> = arrayOf()
+        assertArrayEquals(matrix, matrix concatY matrix2)
+        assertArrayEquals(matrix, matrix2 concatY matrix)
+
+        matrix2 = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 9)
+        )
+        var expectedMatrix = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 9),
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 9)
+        )
+        assertArrayEquals(expectedMatrix, matrix concatY matrix2)
+
+        matrix2 = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6)
+        )
+        expectedMatrix = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 9),
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6)
+        )
+        assertArrayEquals(expectedMatrix, matrix concatY matrix2)
+
+        expectedMatrix = arrayOf(
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(1, 2, 3),
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 9)
+        )
+        assertArrayEquals(expectedMatrix, matrix2 concatY matrix)
+
+        matrix2 = arrayOf(
+            intArrayOf(1, 2, 3, 7),
+            intArrayOf(4, 5, 6, 7)
+        )
+        assertThrows(DifferentArrayLengthException::class.java) { matrix concatY matrix2 }
+        assertThrows(DifferentArrayLengthException::class.java) { matrix2 concatY matrix }
     }
 }

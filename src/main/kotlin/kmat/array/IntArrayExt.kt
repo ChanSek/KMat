@@ -22,6 +22,7 @@ operator fun IntArray.plus(value: Int): IntArray {
     return resultArr
 }
 
+@Throws(DifferentArrayLengthException::class)
 operator fun IntArray.plus(value: IntArray): IntArray {
     if (size != value.size) throw DifferentArrayLengthException("Both operand arrays has different size")
     val resultArr = IntArray(size)
@@ -45,6 +46,7 @@ operator fun IntArray.times(value: Int): IntArray {
     return resultArr
 }
 
+@Throws(DifferentArrayLengthException::class)
 operator fun IntArray.times(value: Array<IntArray>): Int {
     if (size != value.size) throw DifferentArrayLengthException("Both operand arrays has different size")
     var result = 0
@@ -80,4 +82,23 @@ fun IntArray.transpose(): Array<IntArray> {
         result[index][0] = i
     }
     return result
+}
+
+val IntArray.T: Array<IntArray>
+    get() = transpose()
+
+infix fun IntArray.concat(other: IntArray): IntArray {
+    var index = size
+    val result = copyOf(index + other.size)
+    for (element in other) result[index++] = element
+    return result
+}
+
+infix fun IntArray.concatX(other: IntArray) = concat(other)
+
+infix fun IntArray.concatY(other: IntArray) = when {
+    isEmpty() -> arrayOf(other)
+    other.isEmpty() -> arrayOf(this)
+    size != other.size -> throw DifferentArrayLengthException("Both operand arrays has different size")
+    else -> arrayOf(this, other)
 }
