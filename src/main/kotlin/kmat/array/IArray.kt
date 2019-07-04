@@ -1,8 +1,8 @@
 package kmat.array
 
-class IArray(val size: Int) {
+class IArray(internal var size: Int) {
 
-    var arr = IntArray(size)
+    internal var arr = IntArray(size)
 
     constructor(size: Int, init: (Int) -> Int) : this(size) {
         arr = IntArray(size, init)
@@ -19,7 +19,24 @@ class IArray(val size: Int) {
     operator fun get(range: IntRange) = IArray(arr[range])
 
     operator fun set(index: Int, value: Int) {
+        if (index >= size) {
+            val newArr = IntArray(index + 1)
+            System.arraycopy(arr, 0, newArr, 0, size)
+            size = index + 1
+            arr = newArr
+        }
         arr[index] = value
+    }
+
+    operator fun set(range: IntRange, value: Int) {
+        if (range.last >= size) {
+            val newSize = range.last + 1
+            val newArr = IntArray(newSize)
+            System.arraycopy(arr, 0, newArr, 0, size)
+            size = newSize
+            arr = newArr
+        }
+        range.forEach { arr[it] = value }
     }
 
     operator fun iterator() = arr.iterator()

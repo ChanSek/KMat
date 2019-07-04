@@ -23,13 +23,6 @@ fun IArray.copyOf(newSize: Int): IArray {
     return IArray(this.arr.copyOf(newSize))
 }
 
-/**
- * Sets the specified value at indices in the specified [indices] range.
- */
-operator fun IArray.set(range: IntRange, value: Int) {
-    range.forEach { this[it] = value }
-}
-
 operator fun IArray.plus(value: Int): IArray {
     val resultArr = IArray(size)
     forEachIndexed { index, i ->
