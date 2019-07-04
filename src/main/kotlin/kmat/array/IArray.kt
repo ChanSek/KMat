@@ -1,8 +1,8 @@
 package kmat.array
 
-class IArray(size: Int) {
+class IArray(val size: Int) {
 
-    private var arr = IntArray(size)
+    var arr = IntArray(size)
 
     constructor(size: Int, init: (Int) -> Int) : this(size) {
         arr = IntArray(size, init)
@@ -11,6 +11,8 @@ class IArray(size: Int) {
     constructor(sourceArray: IntArray) : this(sourceArray.size) {
         arr = sourceArray.copyOf()
     }
+
+    fun isEmpty() = size == 0
 
     operator fun get(index: Int) = arr[index]
 
