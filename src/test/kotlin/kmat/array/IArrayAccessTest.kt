@@ -3,38 +3,41 @@
 package kmat.array
 
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.lang.IndexOutOfBoundsException
-import java.util.*
 
-class IntArrayAccessTest {
+class IArrayAccessTest {
+
+    private lateinit var arr: IArray
+
+    @BeforeEach
+    fun setup() {
+        arr = iArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    }
 
     @Test
     fun `range access inclusively`() {
-        val arr = IntArray(10) { it }
         val subArray = arr[3..7]
-        assertArrayEquals(intArrayOf(3, 4, 5, 6, 7), subArray)
+        assertEquals(iArrayOf(4, 5, 6, 7, 8), subArray)
     }
 
     @Test
     fun `range access inclusively failure`() {
-        val arr = intArrayOf(2, 5, 7, 8, 9, 10, 23)
         val subArray = arr[2..5]
-        val expectedArray = intArrayOf(7, 8, 9)
-        val equals = Arrays.equals(subArray, expectedArray)
+        val expectedArray = iArrayOf(3, 4, 5)
+        val equals = subArray == expectedArray
         assertNotEquals(true, equals)
     }
 
     @Test
     fun `range access exclusively`() {
-        val arr = IntArray(10) { it * it }
         val subArray = arr[3 until 7]
-        assertArrayEquals(intArrayOf(9, 16, 25, 36), subArray)
+        assertEquals(iArrayOf(4, 5, 6, 7), subArray)
     }
 
     @Test
     fun `out of range access should throw exception`() {
-        val arr = IntArray(10) { it * it }
         assertThrows(IndexOutOfBoundsException::class.java) {
             arr[3..20]
         }
@@ -42,7 +45,6 @@ class IntArrayAccessTest {
 
     @Test
     fun `invalid range access should return empty array`() {
-        val arr = IntArray(10) { it }
-        assertArrayEquals(intArrayOf(), arr[3..1])
+        assertEquals(iArrayOf(), arr[3..1])
     }
 }
