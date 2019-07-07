@@ -10,6 +10,27 @@ fun ones(row: Int, col: Int) = Array(row) {
     IntArray(col) { 1 }
 }
 
+operator fun Array<IntArray>.get(rows: IntRange) = sliceArray(rows)
+
+operator fun Array<IntArray>.get(row: Int, col: Int) = this[row][col]
+
+operator fun Array<IntArray>.get(row: Int, cols: IntRange) = this[row][cols]
+
+operator fun Array<IntArray>.get(rows: IntRange, col: Int): Array<IntArray> {
+    if (col < 0) throw ArrayIndexOutOfBoundsException("Column value can not be smaller than zero, now it's $col")
+    if (rows.last < rows.first) return arrayOf()
+    return Array(1 + rows.last - rows.first) {
+        intArrayOf(this[rows][it][col])
+    }
+}
+
+operator fun Array<IntArray>.get(rows: IntRange, cols: IntRange): Array<IntArray> {
+    if (rows.last < rows.first || cols.last < cols.first) return arrayOf()
+    return Array(1 + rows.last - rows.first) {
+        this[rows][it][cols]
+    }
+}
+
 operator fun Array<IntArray>.plus(value: Int): Array<IntArray> {
     val result = this.copyOf()
     forEachIndexed { index, ints ->
