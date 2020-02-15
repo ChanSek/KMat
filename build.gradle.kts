@@ -29,9 +29,6 @@ dependencies {
     // JUnit 5
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")
-    // Spek
-    testImplementation("org.jetbrains.spek:spek-api:1.1.5")
-    testRuntime("org.jetbrains.spek:spek-junit-platform-engine:1.1.5")
 }
 
 // extension for configuration
@@ -68,7 +65,7 @@ sourceSets {
 
 tasks.withType<Test> {
     useJUnitPlatform {
-        includeEngines("spek", "spek2")
+        includeEngines("junit")
     }
     testLogging {
         events("passed", "skipped", "failed")
