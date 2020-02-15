@@ -42,7 +42,7 @@ class IArray(internal var size: Int) {
     operator fun iterator() = arr.iterator()
 
     // TODO - Need to identify why Kotlin's stdlib classes like IntArray doesn't has equals() method
-    // Instead of this why Kotlin prefer to use contentEquals
+    //  Instead of this why Kotlin prefer to use contentEquals
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
 
